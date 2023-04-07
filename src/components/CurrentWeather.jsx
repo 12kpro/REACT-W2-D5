@@ -40,7 +40,7 @@ const CurrentWheather = () => {
     return date.toLocaleString(locale);
   };
   return (
-    <div className="m-4">
+    <div className="p-4 border-bottom border-3">
       {coordinates.length > 0 && isLoading && !error && (
         <div className="spinner-border text-danger" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -62,32 +62,27 @@ const CurrentWheather = () => {
         </div>
       )}
       {weatherData.length > 0 && (
-        <div className="my-4">
+        <>
           <div className="sm">
-            <p className="text-2xl font-semibold tracking-wide dark:text-white">{weatherData[0].name}</p>
+            <p className="fs-2 fw-semibold">{weatherData[0].name}</p>
             <p className="tracking-wide text-gray-500 dark:text-gray-400">{msToDate(weatherData[0].dt, "it-IT")}</p>
           </div>
-          <div className="my-5 d-flex justify-content-between">
-            <span className="mt-6 display-1">
-              {weatherData[0].main.temp}
-              <span className="mt-1 fw-normal fs-1">Feels like {weatherData[0].main.feels_like}</span>
-            </span>
-            <div className="mt-4 text-8xl text-indigo-700 dark:text-white sm:text-9xl">
-              <span className={`wi wi-day-${weatherData[0].weather[0].id}`}></span>
+          <div className="my-3 d-flex justify-content-between">
+            <div className="mt-6 display-1">
+              {weatherData[0].main.temp.toFixed(0)}
+              <p className="mt-1 fw-normal fs-4">Feels like {weatherData[0].main.feels_like.toFixed(0)}</p>
+            </div>
+            <div className="mt-4 display-1">
+              <span className={`wi wi-owm-day-${weatherData[0].weather[0].id}`}></span>
             </div>
           </div>
-          <div className="mt-1 text-indigo-700 dark:text-gray-400">
-            <span className="wi wi-strong-wind text-xl"></span>
-            <span className="ml-1 mr-2 tracking-wide text-gray-500 dark:text-white">
-              {weatherData[0].wind.speed}m/s winds
-            </span>
-            <span className="wi wi-humidity text-xl"></span>
-            <span className="ml-1 tracking-wide text-gray-500 dark:text-white">
-              {weatherData[0].main.humidity} humidity
-            </span>
+          <div className="mt-1 fs-5">
+            <span className="wi wi-strong-wind "></span>
+            <span className="mx-3 ">{weatherData[0].wind.speed} m/s winds</span>
+            <span className="wi wi-humidity"></span>
+            <span className="ms-3">{weatherData[0].main.humidity} humidity</span>
           </div>
-          <div className="mt-10 mb-4 text-center text-2xl tracking-wide text-gray-500 dark:text-white"></div>
-        </div>
+        </>
       )}
     </div>
   );

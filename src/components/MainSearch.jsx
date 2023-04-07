@@ -41,13 +41,13 @@ const MainSearch = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-12">
+        <div className="col-6 offset-3">
           <h1>Weather Checker</h1>
         </div>
-        <div className="col-12">
-          <form className="form-floating" onSubmit={handleSubmit}>
+        <div className="col-6 offset-3">
+          <form className="form-floating border-bottom border-3" onSubmit={handleSubmit}>
             <label htmlFor="search" className="form-label">
-              Password
+              Locations
             </label>
             <input
               type="search"
@@ -59,10 +59,10 @@ const MainSearch = () => {
             />
           </form>
         </div>
-        <div className="col-12">
+        <div className="col-6 offset-3">
           <CurrentWeather />
         </div>
-        <div className="col-12">
+        <div className="col-6 offset-3">
           <DailyWeather />
         </div>
       </div>

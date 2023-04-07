@@ -33,9 +33,15 @@ const DailyWheater = () => {
     }
   }, [coordinates]);
 
-  const msToDate = (ms, locale) => {
-    const date = new Date(ms * 1000);
-    return date.toLocaleString(locale);
+  const msToDate = (ms, locale, type) => {
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let date = new Date(ms * 1000);
+    //date = date.toLocaleString(locale);
+    if (type === "weekDay") {
+      return days[date.getDay()];
+    } else if (type === "dayTime") {
+      return date.toLocaleTimeString(locale);
+    }
   };
 
   return (
@@ -61,15 +67,19 @@ const DailyWheater = () => {
         </div>
       )}
       {dailyWeatherData.length > 0 && (
-        <ul className="list-group">
+        <ul className="list-group p-4">
           {dailyWeatherData[0].list.map((day, i) => (
             <li key={i} className="d-flex flex-row justify-content-between list-group-item">
-              <span className="flex-1 text-left">{msToDate(day.dt, "it-IT")}</span>
-              <span className="text-2xl text-indigo-700 dark:text-white">
-                <span className={`wi wi-day-${day.weather[0].id}`}></span>
+              <span className="flex-grow-1 text-start w-25">{`${msToDate(day.dt, "it-IT", "weekDay")}, ${msToDate(
+                day.dt,
+                "it-IT",
+                "dayTime"
+              )}`}</span>
+              <span className="fs-2">
+                <span className={`wi wi-owm-day-${day.weather[0].id}`}></span>
               </span>
-              <span className="flex-1 text-right">
-                {day.main.temp_min}° / {day.main.temp_max}°
+              <span className="flex-grow-1 text-end w-25">
+                {day.main.temp_min.toFixed(0)}° / {day.main.temp_max.toFixed(0)}°
               </span>
             </li>
           ))}
