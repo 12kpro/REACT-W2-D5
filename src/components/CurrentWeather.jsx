@@ -35,8 +35,12 @@ const CurrentWheather = () => {
     }
   }, [coordinates]);
 
+  const msToDate = (ms, locale) => {
+    const date = new Date(ms * 1000);
+    return date.toLocaleString(locale);
+  };
   return (
-    <>
+    <div className="m-4">
       {coordinates.length > 0 && isLoading && !error && (
         <div className="spinner-border text-danger" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -58,20 +62,18 @@ const CurrentWheather = () => {
         </div>
       )}
       {weatherData.length > 0 && (
-        <div className="m-4">
+        <div className="my-4">
           <div className="sm">
             <p className="text-2xl font-semibold tracking-wide dark:text-white">{weatherData[0].name}</p>
-            <p className="tracking-wide text-gray-500 dark:text-gray-400">{weatherData[0].dt}</p>
+            <p className="tracking-wide text-gray-500 dark:text-gray-400">{msToDate(weatherData[0].dt, "it-IT")}</p>
           </div>
-          <div className="my-8 d-flex flex-row justify-content-between text-5xl tracking-wide">
-            <span className="mt-6 font-light text-gray-500 dark:text-white md:mt-10">
+          <div className="my-5 d-flex justify-content-between">
+            <span className="mt-6 display-1">
               {weatherData[0].main.temp}
-              <span className="mt-1 flex flex-col text-base font-normal tracking-wide text-gray-500 dark:text-gray-400">
-                Feels like {weatherData[0].main.feels_like}
-              </span>
+              <span className="mt-1 fw-normal fs-1">Feels like {weatherData[0].main.feels_like}</span>
             </span>
             <div className="mt-4 text-8xl text-indigo-700 dark:text-white sm:text-9xl">
-              <span className="wi wi-day-cloudy-gusts"></span>
+              <span className={`wi wi-day-${weatherData[0].weather[0].id}`}></span>
             </div>
           </div>
           <div className="mt-1 text-indigo-700 dark:text-gray-400">
@@ -87,7 +89,7 @@ const CurrentWheather = () => {
           <div className="mt-10 mb-4 text-center text-2xl tracking-wide text-gray-500 dark:text-white"></div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

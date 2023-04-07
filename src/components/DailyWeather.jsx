@@ -32,6 +32,12 @@ const DailyWheater = () => {
       fetchData(`${OPENWHEATHER_DAILY_URL}appid=${API_KEY}&units=metric&${queryParam}`);
     }
   }, [coordinates]);
+
+  const msToDate = (ms, locale) => {
+    const date = new Date(ms * 1000);
+    return date.toLocaleString(locale);
+  };
+
   return (
     <>
       {coordinates.length > 0 && isLoading && !error && (
@@ -58,9 +64,9 @@ const DailyWheater = () => {
         <ul className="list-group">
           {dailyWeatherData[0].list.map((day, i) => (
             <li key={i} className="d-flex flex-row justify-content-between list-group-item">
-              <span className="flex-1 text-left">{day.dt}</span>
+              <span className="flex-1 text-left">{msToDate(day.dt, "it-IT")}</span>
               <span className="text-2xl text-indigo-700 dark:text-white">
-                <span className="wi wi-day-sunny"></span>
+                <span className={`wi wi-day-${day.weather[0].id}`}></span>
               </span>
               <span className="flex-1 text-right">
                 {day.main.temp_min}° / {day.main.temp_max}°

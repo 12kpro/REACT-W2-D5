@@ -27,7 +27,7 @@ const MainSearch = () => {
           const data = await response.json();
           return data;
         } else {
-          alert("Error fetching results");
+          console.log("Error fetching results");
         }
       } catch (error) {
         console.log(error);
