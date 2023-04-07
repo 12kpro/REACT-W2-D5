@@ -45,17 +45,14 @@ const MainSearch = () => {
           <h1>Weather Checker</h1>
         </div>
         <div className="col-6 offset-3">
-          <form className="form-floating border-bottom border-3" onSubmit={handleSubmit}>
-            <label htmlFor="search" className="form-label">
-              Locations
-            </label>
+          <form className="border-bottom border-3 pb-2" onSubmit={handleSubmit}>
             <input
               type="search"
               id="search"
               className="form-control"
               value={query}
               onChange={handleChange}
-              placeholder="type and press Enter"
+              placeholder="type a location and press Enter"
             />
           </form>
         </div>
