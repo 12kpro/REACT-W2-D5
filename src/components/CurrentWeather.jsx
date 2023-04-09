@@ -6,7 +6,7 @@ const CurrentWheather = (props) => {
 
   const API_KEY = "2ce5b124ba3aaa95f52940ea92d2e8bb";
   const coordinates = useSelector((state) => state.coordinates);
-  const [weatherData, setweatherData] = useState();
+  const [weatherData, setweatherData] = useState(null);
 
   useEffect(() => {
     const fetchData = async (url) => {
