@@ -1,34 +1,33 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const DailyWheater = () => {
+const DailyWheater = (props) => {
   const OPENWHEATHER_DAILY_URL = "https://api.openweathermap.org/data/2.5/forecast?";
   const API_KEY = "2ce5b124ba3aaa95f52940ea92d2e8bb";
   const coordinates = useSelector((state) => state.coordinates);
-  const [dailyWeatherData, setDailyWeatherData] = useState([]);
-  const [error, setError] = useState(false);
-  const [isLoading, setISLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [dailyWeatherData, setDailyWeatherData] = useState(null);
 
   useEffect(() => {
     const fetchData = async (url) => {
       try {
+        props.updateLoaders(2, true);
+        props.updateError(2, "");
         const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
-          setDailyWeatherData([data]);
+          setDailyWeatherData(data);
+          props.updateLoaders(2, true);
         } else {
-          setError(true);
+          props.updateError(2, "No data retrived!");
         }
       } catch (error) {
-        setError(true);
-        setErrorMsg(error.message);
+        props.updateError(2, error.message);
       } finally {
-        setISLoading(false);
+        props.updateLoaders(2, false);
       }
     };
-    if (coordinates.length > 0) {
-      const queryParam = new URLSearchParams(coordinates[0]).toString();
+    if (coordinates) {
+      const queryParam = new URLSearchParams(coordinates).toString();
       fetchData(`${OPENWHEATHER_DAILY_URL}appid=${API_KEY}&units=metric&${queryParam}`);
     }
   }, [coordinates]);
@@ -46,12 +45,37 @@ const DailyWheater = () => {
 
   return (
     <>
-      {coordinates.length > 0 && isLoading && !error && (
+      {dailyWeatherData && (
+        <div className="list-group">
+          {dailyWeatherData.list.map((day, i) => (
+            <div key={i} className="d-flex flex-row justify-content-between align-items-center">
+              <span className="flex-grow-1 text-start w-25">{`${msToDate(day.dt, "it-IT", "weekDay")}, ${msToDate(
+                day.dt,
+                "it-IT",
+                "dayTime"
+              )}`}</span>
+              <span className="fs-2">
+                <span className={`wi wi-owm-day-${day.weather[0].id}`}></span>
+              </span>
+              <span className="flex-grow-1 text-end w-25">
+                {day.main.temp_min.toFixed(0)}° / {day.main.temp_max.toFixed(0)}°
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default DailyWheater;
+/*      
+      {coordinates && isLoading && !error && (
         <div className="spinner-border text-danger" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
       )}
-      {coordinates.length === 0 && !error && isLoading && (
+      {coordinates && !error && isLoading && (
         <div className="alert alert-success" role="alert">
           Insert search location
         </div>
@@ -66,31 +90,11 @@ const DailyWheater = () => {
           {errorMsg ? errorMsg : "Network problem!"}
         </div>
       )}
-      {dailyWeatherData.length > 0 && (
-        <ul className="list-group p-4">
-          {dailyWeatherData[0].list.map((day, i) => (
-            <li key={i} className="d-flex flex-row justify-content-between list-group-item">
-              <span className="flex-grow-1 text-start w-25">{`${msToDate(day.dt, "it-IT", "weekDay")}, ${msToDate(
-                day.dt,
-                "it-IT",
-                "dayTime"
-              )}`}</span>
-              <span className="fs-2">
-                <span className={`wi wi-owm-day-${day.weather[0].id}`}></span>
-              </span>
-              <span className="flex-grow-1 text-end w-25">
-                {day.main.temp_min.toFixed(0)}° / {day.main.temp_max.toFixed(0)}°
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
-  );
-};
 
-export default DailyWheater;
-/*      {dailyWeatherData.length === 0 && !error && !isLoading && (
+
+
+
+{dailyWeatherData.length === 0 && !error && !isLoading && (
         <div className="alert alert-success" role="alert">
           No movies found!
         </div>

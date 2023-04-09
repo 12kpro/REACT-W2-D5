@@ -1,5 +1,5 @@
 const initialState = {
-  coordinates: []
+  coordinates: null
 };
 
 const mainReducer = (state = initialState, action) => {
