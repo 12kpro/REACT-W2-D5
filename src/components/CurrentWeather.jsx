@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const CurrentWheather = (props) => {
+const CurrentWeather = (props) => {
   const OPENWHEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather?";
 
   const API_KEY = "2ce5b124ba3aaa95f52940ea92d2e8bb";
@@ -67,7 +67,7 @@ const CurrentWheather = (props) => {
   );
 };
 
-export default CurrentWheather;
+export default CurrentWeather;
 /*
       {weatherData.list.map((day) => (
         <div></div>

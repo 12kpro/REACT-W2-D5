@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const DailyWheater = (props) => {
+const DailyWeather = (props) => {
   const OPENWHEATHER_DAILY_URL = "https://api.openweathermap.org/data/2.5/forecast?";
   const API_KEY = "2ce5b124ba3aaa95f52940ea92d2e8bb";
   const coordinates = useSelector((state) => state.coordinates);
@@ -68,7 +68,7 @@ const DailyWheater = (props) => {
   );
 };
 
-export default DailyWheater;
+export default DailyWeather;
 /*      
       {coordinates && isLoading && !error && (
         <div className="spinner-border text-danger" role="status">
