@@ -52,7 +52,7 @@ const MainSearch = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-6 offset-3">
+        <div className="col-12 col-md-8 offset-md-2">
           <div className="d-flex justify-content-between align-items-center">
             <h1>Weather Checker</h1>
 
@@ -65,7 +65,7 @@ const MainSearch = () => {
             </div>
           </div>
         </div>
-        <div className="col-6 offset-3 mb-3">
+        <div className="col-12 col-md-8 offset-md-2">
           <form className="border-bottom border-3 pb-2" onSubmit={handleSubmit}>
             <input
               type="search"
@@ -91,10 +91,10 @@ const MainSearch = () => {
           </div>
         ) : (
           <>
-            <div className="col-6 offset-3">
+            <div className="col-12 col-md-8 offset-md-2">
               <CurrentWeather updateLoaders={updateFetchLoadingState} updateError={updateFetchErrorState} />
             </div>
-            <div className="col-6 offset-3">
+            <div className="col-12 col-md-8 offset-md-2">
               <DailyWeather updateLoaders={updateFetchLoadingState} updateError={updateFetchErrorState} />
             </div>
           </>

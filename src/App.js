@@ -2,7 +2,7 @@ import "bootstrap/dist/js/bootstrap";
 import MainSearch from "./components/MainSearch";
 //import CompanySearchResults from "./components/CompanySearchResults";
 //import FavouritesCompanies from "./components/FavouritesCompanies";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+//import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 /*
         <Route path="/" element={<MainSearch />} />
@@ -11,13 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
         */
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainSearch />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <MainSearch />;
 }
 
 export default App;

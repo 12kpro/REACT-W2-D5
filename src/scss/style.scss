@@ -17,10 +17,11 @@
   width: 3.6875em;
   height: 3.6875em;
   margin: -1.84375em;
-  background: #fff;
+  background: var(--bs-body-bg);
   border-radius: 50%;
-  box-shadow: -2.1875em 0.6875em 0 -0.6875em #fff, 2.0625em 0.9375em 0 -0.9375em #fff, 0 0 0 0.375em #000,
-    -2.1875em 0.6875em 0 -0.3125em #000, 2.0625em 0.9375em 0 -0.5625em #000;
+  box-shadow: -2.1875em 0.6875em 0 -0.6875em var(--bs-body-bg), 2.0625em 0.9375em 0 -0.9375em var(--bs-body-bg),
+    0 0 0 0.375em var(--bs-body-color), -2.1875em 0.6875em 0 -0.3125em var(--bs-body-color),
+    2.0625em 0.9375em 0 -0.5625em var(--bs-body-color);
 }
 .cloud:after {
   content: "";
@@ -30,8 +31,8 @@
   display: block;
   width: 4.5625em;
   height: 1em;
-  background: #fff;
-  box-shadow: 0 0.4375em 0 -0.0625em #000;
+  background: var(--bs-body-bg);
+  box-shadow: 0 0.4375em 0 -0.0625em var(--bs-body-color);
 }
 
 .sun {
@@ -41,9 +42,9 @@
   width: 2.5em;
   height: 2.5em;
   margin: -1.25em;
-  background: #fff;
+  background: var(--bs-body-bg);
   border-radius: 50%;
-  box-shadow: 0 0 0 0.375em #000;
+  box-shadow: 0 0 0 0.375em var(--bs-body-color);
 }
 .rays {
   position: absolute;
@@ -53,9 +54,9 @@
   width: 0.375em;
   height: 1.125em;
   margin-left: -0.1875em;
-  background: #000;
+  background: var(--bs-body-color);
   border-radius: 0.25em;
-  box-shadow: 0 5.375em #000;
+  box-shadow: 0 5.375em var(--bs-body-color);
 }
 .rays:before,
 .rays:after {
@@ -68,9 +69,9 @@
   height: 1.125em;
   transform: rotate(60deg);
   transform-origin: 50% 3.25em;
-  background: #000;
+  background: var(--bs-body-color);
   border-radius: 0.25em;
-  box-shadow: 0 5.375em #000;
+  box-shadow: 0 5.375em var(--bs-body-color);
 }
 .rays:before {
   transform: rotate(120deg);
@@ -87,7 +88,7 @@
   width: 3.75em;
   height: 3.75em;
   margin: 0.375em 0 0 -2em;
-  background: #fff;
+  background: var(--bs-body-bg);
 }
 
 .rain:after {
@@ -99,7 +100,7 @@
   width: 1.125em;
   height: 1.125em;
   margin: -1em 0 0 -0.25em;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 100% 0 60% 50% / 60% 0 100% 50%;
   box-shadow: 0.625em 0.875em 0 -0.125em rgba(0, 0, 0, 0.2), -0.875em 1.125em 0 -0.125em rgba(0, 0, 0, 0.2),
     -1.375em -0.125em 0 rgba(0, 0, 0, 0.2);

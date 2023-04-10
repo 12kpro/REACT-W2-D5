@@ -55,7 +55,7 @@ const CurrentWeather = (props) => {
               <span className={`wi wi-owm-day-${weatherData.weather[0].id}`}></span>
             </div>
           </div>
-          <div className="mt-1 fs-5">
+          <div className="mt-1 fs-5 mb-2">
             <span className="wi wi-strong-wind "></span>
             <span className="mx-3 ">{weatherData.wind.speed} m/s winds</span>
             <span className="wi wi-humidity"></span>
@@ -68,30 +68,3 @@ const CurrentWeather = (props) => {
 };
 
 export default CurrentWeather;
-/*
-      {weatherData.list.map((day) => (
-        <div></div>
-      ))}
-      {coordinates && isLoading && !error && (
-        <div className="spinner-border text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      )}
-      {coordinates && !error && isLoading && (
-        <div className="alert alert-success" role="alert">
-          Insert search location
-        </div>
-      )}
-      {weatherData.length === 0 && !error && !isLoading && (
-        <div className="alert alert-success" role="alert">
-          No movies found!
-        </div>
-      )}
-      {error && !isLoading && (
-        <div className="alert alert-danger" role="alert">
-          {errorMsg ? errorMsg : "Network problem!"}
-        </div>
-      )}
-
-
-*/

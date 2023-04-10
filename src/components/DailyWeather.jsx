@@ -7,6 +7,15 @@ const DailyWeather = (props) => {
   const coordinates = useSelector((state) => state.coordinates);
   const [dailyWeatherData, setDailyWeatherData] = useState(null);
 
+  const parseDailyWeather = (data) => {
+    for (const item of data) {
+      let date = new Date(item.dt * 1000);
+      item.day = date.getDay();
+      item.hour = date.getHours();
+      item.minutes = date.getMinutes();
+    }
+    return data;
+  };
   useEffect(() => {
     const fetchData = async (url) => {
       try {
@@ -15,7 +24,7 @@ const DailyWeather = (props) => {
         const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
-          setDailyWeatherData(data);
+          setDailyWeatherData(parseDailyWeather(data.list));
           props.updateLoaders(2, true);
         } else {
           props.updateError(2, "No data retrived!");
@@ -47,7 +56,7 @@ const DailyWeather = (props) => {
     <>
       {dailyWeatherData && (
         <div className="list-group">
-          {dailyWeatherData.list.map((day, i) => (
+          {dailyWeatherData.map((day, i) => (
             <div key={i} className="d-flex flex-row justify-content-between align-items-center">
               <span className="flex-grow-1 text-start w-25">{`${msToDate(day.dt, "it-IT", "weekDay")}, ${msToDate(
                 day.dt,
@@ -69,125 +78,3 @@ const DailyWeather = (props) => {
 };
 
 export default DailyWeather;
-/*      
-      {coordinates && isLoading && !error && (
-        <div className="spinner-border text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      )}
-      {coordinates && !error && isLoading && (
-        <div className="alert alert-success" role="alert">
-          Insert search location
-        </div>
-      )}
-      {dailyWeatherData.length === 0 && !error && !isLoading && (
-        <div className="alert alert-success" role="alert">
-          No movies found!
-        </div>
-      )}
-      {error && !isLoading && (
-        <div className="alert alert-danger" role="alert">
-          {errorMsg ? errorMsg : "Network problem!"}
-        </div>
-      )}
-
-
-
-
-{dailyWeatherData.length === 0 && !error && !isLoading && (
-        <div className="alert alert-success" role="alert">
-          No movies found!
-        </div>
-      )}
-
-      {dailyWheaterData.list.map((day) => (
-        <div></div>
-      ))}
-
-        <ul className="list-group">
-          <li className="d-flex flex-row list-group-item">
-            <span className="flex-1 text-left">Saturday</span>
-            <span className="text-2xl text-indigo-700 dark:text-white">
-              <span className="wi wi-day-sunny"></span>
-            </span>
-            <span className="flex-1 text-right">22° / 22°</span>
-          </li>
-          <li className="d-flex flex-row list-group-item">
-            <span className="flex-1 text-left">Saturday</span>
-            <span className="text-2xl text-indigo-700 dark:text-white">
-              <span className="wi wi-day-sunny"></span>
-            </span>
-            <span className="flex-1 text-right">22° / 22°</span>
-          </li>
-          <li className="d-flex flex-row list-group-item">
-            <span className="flex-1 text-left">Saturday</span>
-            <span className="text-2xl text-indigo-700 dark:text-white">
-              <span className="wi wi-day-sunny"></span>
-            </span>
-            <span className="flex-1 text-right">22° / 22°</span>
-          </li>
-          <li className="d-flex flex-row list-group-item">
-            <span className="flex-1 text-left">Saturday</span>
-            <span className="text-2xl text-indigo-700 dark:text-white">
-              <span className="wi wi-day-sunny"></span>
-            </span>
-            <span className="flex-1 text-right">22° / 22°</span>
-          </li>
-        </ul>
-
-
-<SliderItem key={movie.imdbID} image={movie.Poster} movieId={movie.imdbID} />
-
-    <div class="m-4">
-      <div class="">
-        <ul class="mt-4">
-          <li class="flex flex-row p-1 text-gray-500 dark:text-white">
-            <span class="flex-1 text-left">Saturday</span>
-            <span class="text-2xl text-indigo-700 dark:text-white">
-              <span class="wi wi-day-sunny"></span>
-            </span>
-            <span class="flex-1 text-right">22° / 22°</span>
-          </li>
-        </ul>
-        <ul class="mt-4">
-          <li class="flex flex-row p-1 text-gray-500 dark:text-white">
-            <span class="flex-1 text-left">Sunday</span>
-            <span class="text-2xl text-indigo-700 dark:text-white">
-              <span class="wi wi-day-cloudy-gusts"></span>
-            </span>
-            <span class="flex-1 text-right">22° / 22°</span>
-          </li>
-        </ul>
-        <ul class="mt-4">
-          <li class="flex flex-row p-1 text-gray-500 dark:text-white">
-            <span class="flex-1 text-left">Monday</span>
-            <span class="text-2xl text-indigo-700 dark:text-white">
-              <span class="wi wi-day-cloudy-gusts"></span>
-            </span>
-            <span class="flex-1 text-right">24° / 24°</span>
-          </li>
-        </ul>
-        <ul class="mt-4">
-          <li class="flex flex-row p-1 text-gray-500 dark:text-white">
-            <span class="flex-1 text-left">Tuesday</span>
-            <span class="text-2xl text-indigo-700 dark:text-white">
-              <span class="wi wi-day-cloudy-gusts"></span>
-            </span>
-            <span class="flex-1 text-right">25° / 25°</span>
-          </li>
-        </ul>
-        <ul class="mt-4">
-          <li class="flex flex-row p-1 text-gray-500 dark:text-white">
-            <span class="flex-1 text-left">Wednesday</span>
-            <span class="text-2xl text-indigo-700 dark:text-white">
-              <span class="wi wi-day-sunny-overcast"></span>
-            </span>
-            <span class="flex-1 text-right">22° / 22°</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-*/
-/*
-
-*/
